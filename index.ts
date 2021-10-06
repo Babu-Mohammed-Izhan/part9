@@ -14,7 +14,6 @@ app.get("hello", (_req, res) => {
 });
 
 app.get("/bmi", (req, res) => {
-  console.log(req.query);
   if (
     !req.query.height ||
     !req.query.weight ||
@@ -26,8 +25,6 @@ app.get("/bmi", (req, res) => {
     });
   }
 
-  console.log();
-  console.log();
   const height = req.query.height;
   const weight = req.query.weight;
   const bmi = calculateBmi(["", "", String(height), String(weight)]);
@@ -40,9 +37,13 @@ app.get("/bmi", (req, res) => {
 });
 
 app.post("/exercise", (req, res) => {
-  console.log(req.body);
+  const body = {
+    daily_exercises: ["1", "0", "2", "0", "3", "0", "2.5"],
+    target: "2.5",
+  };
+  console.log(body);
   console.log(
-    calculateExercises(["", "", req.body.target, ...req.body.daily_exercises])
+    calculateExercises([" ", " ", body.target, ...body.daily_exercises])
   );
   res.send(req.body);
 });

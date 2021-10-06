@@ -1,6 +1,7 @@
-const calculateBmi = (args: Array<string>): string => {
-  let weight: number = 0;
-  let height: number = 0;
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+export const calculateBmi = (args: Array<string>): string => {
+  let weight = 0;
+  let height = 0;
 
   if (args.length < 4) throw new Error("Not enough arguments");
   if (args.length > 4) throw new Error("Too many arguments");

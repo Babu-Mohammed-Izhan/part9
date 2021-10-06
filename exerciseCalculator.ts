@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface result {
   periodLength: number;
   trainingDays: number;
@@ -8,13 +10,13 @@ interface result {
   average: number;
 }
 
-const caculateExercises = (args: Array<string>): result => {
-  let trainingDays: number = 0;
-  let totaltime: number = 0;
-  let rating: number = 0;
-  let ratingDescription: string = "";
+export const calculateExercises = (args: Array<string>): result => {
+  let trainingDays = 0;
+  let totaltime = 0;
+  let rating = 0;
+  let ratingDescription = "";
 
-  const target: number = Number(args[2]);
+  const target = Number(args[2]);
   const exercisehours: Array<number> = args.slice(3).map(Number);
 
   const periodLength: number = exercisehours.length;
@@ -25,7 +27,7 @@ const caculateExercises = (args: Array<string>): result => {
     totaltime = totaltime + day;
   });
 
-  let average: number = totaltime / periodLength;
+  const average: number = totaltime / periodLength;
 
   const success: boolean = average > target ? true : false;
 
@@ -52,7 +54,7 @@ const caculateExercises = (args: Array<string>): result => {
 };
 
 try {
-  console.log(caculateExercises(process.argv));
-} catch (e) {
+  console.log(calculateExercises(process.argv));
+} catch (e: any) {
   console.log("Error, something bad happened, message: ", e.message);
 }

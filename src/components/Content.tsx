@@ -1,18 +1,18 @@
 import React from "react";
-import { coursePart } from "../types";
 
 const Content = (props: any) => {
   return (
     <div>
-      <p>
-        {props.courseParts[0].name} {props.courseParts[0].exerciseCount}
-      </p>
-      <p>
-        {props.courseParts[1].name} {props.courseParts[1].exerciseCount}
-      </p>
-      <p>
-        {props.courseParts[2].name} {props.courseParts[2].exerciseCount}
-      </p>
+      {props.courseParts.map((con: any) => {
+        return (
+          <div key={con.id}>
+            <h2>{con.name}</h2>
+            <span>{con.exerciseCount}</span>
+            <br />
+            <p>{con.description}</p>
+          </div>
+        );
+      })}
     </div>
   );
 };

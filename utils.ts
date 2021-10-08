@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { PatientEntry, Gender } from "./types";
+import { PatientEntry, Gender, Entry } from "./types";
 
 const isString = (text: unknown): text is string => {
   return typeof text === "string";
@@ -36,6 +36,17 @@ const parseGender = (gender: unknown): Gender => {
   return gender;
 };
 
+const isEntry = (_entry: unknown): _entry is Entry => {
+  return true;
+};
+
+const parseEntry = (entry: unknown): Entry[] => {
+  if (!entry || !isEntry(entry)) {
+    throw new Error("Incorrect or missing Entry: " + entry);
+  }
+  return [entry];
+};
+
 type Fields = {
   id: string;
   name: unknown;
@@ -43,6 +54,7 @@ type Fields = {
   ssn: unknown;
   gender: unknown;
   occupation: unknown;
+  entries: unknown;
 };
 
 const toNewPatientEntry = ({
@@ -52,6 +64,7 @@ const toNewPatientEntry = ({
   ssn,
   gender,
   occupation,
+  entries,
 }: Fields): PatientEntry => {
   const newEntry: PatientEntry = {
     id,
@@ -60,6 +73,7 @@ const toNewPatientEntry = ({
     ssn: parseString(ssn),
     gender: parseGender(gender),
     occupation: parseString(occupation),
+    entries: parseEntry(entries),
   };
 
   return newEntry;

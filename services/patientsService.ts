@@ -1,5 +1,5 @@
 import patientData from "../data/patients.json";
-import { PublicPatientEntry, PatientEntry } from "../types";
+import { PublicPatientEntry, PatientEntry, Entry } from "../types";
 
 const patinets: Array<PublicPatientEntry> = patientData;
 
@@ -13,13 +13,21 @@ const getPatients = (): Array<PublicPatientEntry> => {
   }));
 };
 
+const getOnePatient = (id: string): Array<PublicPatientEntry> => {
+  const onePatient = patinets.filter((pat) => {
+    return pat.id === id;
+  });
+  return onePatient;
+};
+
 const addPatients = (
   id: string,
   name: string,
   dateOfBirth: string,
   ssn: string,
   gender: string,
-  occupation: string
+  occupation: string,
+  entries: Entry[]
 ): PatientEntry => {
   const newPatient = {
     id,
@@ -28,6 +36,7 @@ const addPatients = (
     ssn,
     gender,
     occupation,
+    entries,
   };
 
   patientData.push(newPatient);
@@ -37,4 +46,5 @@ const addPatients = (
 export default {
   getPatients,
   addPatients,
+  getOnePatient,
 };

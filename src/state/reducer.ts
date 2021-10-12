@@ -51,3 +51,17 @@ export const reducer = (state: State, action: Action): State => {
       return state;
   }
 };
+
+export const setPatientList = (data: Patient[]): any => {
+  return {
+    type: "SET_PATIENT_LIST",
+    payload: data,
+  };
+};
+
+export const setonePatient = (data: Patient[]): any => {
+  return {
+    type: "SET_SINGLE_PATIENT",
+    payload: data,
+  };
+};

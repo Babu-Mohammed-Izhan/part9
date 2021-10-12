@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Container, Icon } from "semantic-ui-react";
 
 import { apiBaseUrl } from "../constants";
-import { useStateValue } from "../state";
+import { useStateValue, setonePatient } from "../state";
 import { Patient } from "../types";
 
 const SinglePatient = () => {
@@ -19,8 +19,7 @@ const SinglePatient = () => {
         const { data: patientFromApi } = await axios.get<Patient[]>(
           `${apiBaseUrl}/patients/${id}`
         );
-        console.log(patientFromApi);
-        dispatch({ type: "SET_SINGLE_PATIENT", payload: patientFromApi });
+        dispatch(setonePatient(patientFromApi));
       } catch (e) {
         console.error(e);
       }

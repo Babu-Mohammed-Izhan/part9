@@ -1,7 +1,7 @@
 import patientData from "../data/patients.json";
 import { PublicPatientEntry, PatientEntry, Entry } from "../types";
 
-const patinets: Array<PublicPatientEntry> = patientData;
+const patinets: Array<PatientEntry> = patientData;
 
 const getPatients = (): Array<PublicPatientEntry> => {
   return patinets.map(({ id, name, dateOfBirth, gender, occupation }) => ({
@@ -39,7 +39,7 @@ const addPatients = (
     entries,
   };
 
-  patientData.push(newPatient);
+  patinets.push(newPatient);
   return newPatient;
 };
 

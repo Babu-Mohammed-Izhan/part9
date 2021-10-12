@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { Container } from "semantic-ui-react";
+import { Container, Icon } from "semantic-ui-react";
 
 import { apiBaseUrl } from "../constants";
 import { useStateValue } from "../state";
@@ -9,7 +9,7 @@ import { Patient } from "../types";
 
 const SinglePatient = () => {
   const { id } = useParams<{ id: string }>();
-  const [{ patients }, dispatch] = useStateValue();
+  const [{ patient }, dispatch] = useStateValue();
 
   React.useEffect(() => {
     void axios.get<void>(`${apiBaseUrl}/ping`);
@@ -20,7 +20,7 @@ const SinglePatient = () => {
           `${apiBaseUrl}/patients/${id}`
         );
         console.log(patientFromApi);
-        dispatch({ type: "SET_PATIENT_LIST", payload: patientFromApi });
+        dispatch({ type: "SET_SINGLE_PATIENT", payload: patientFromApi });
       } catch (e) {
         console.error(e);
       }
@@ -28,14 +28,19 @@ const SinglePatient = () => {
     void fetchPatientList();
   }, [dispatch]);
 
+  console.log(patient);
+
   return (
     <div>
-      <Container textAlign="center">
-        {Object.values(patients).map((patient: Patient) => (
-          <div key={patient.id}>
-            <div>{patient.name}</div>
-            <div>{patient.gender}</div>
-            <div>{patient.occupation}</div>
+      <Container textAlign="left">
+        {Object.values(patient).map((onepatient: Patient) => (
+          <div key={onepatient.id}>
+            <h1>
+              {onepatient.name}{" "}
+              <Icon name={onepatient.gender === "male" ? "male" : "female"} />
+            </h1>
+            <h3>ssn: {onepatient.ssn}</h3>
+            <h3>occupation: {onepatient.occupation}</h3>
           </div>
         ))}
       </Container>

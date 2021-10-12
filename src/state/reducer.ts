@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { State } from "./state";
 import { Patient } from "../types";
 
@@ -8,7 +9,7 @@ export type Action =
     }
   | {
       type: "SET_SINGLE_PATIENT";
-      payload: Patient;
+      payload: Patient[];
     }
   | {
       type: "ADD_PATIENT";
@@ -30,8 +31,12 @@ export const reducer = (state: State, action: Action): State => {
       };
     case "SET_SINGLE_PATIENT":
       return {
+        ...state,
         patient: {
-          ...action.payload,
+          ...action.payload.reduce(
+            (memo, patient) => ({ ...memo, [patient.id]: patient }),
+            {}
+          ),
         },
       };
     case "ADD_PATIENT":

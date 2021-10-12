@@ -5,7 +5,7 @@ import { Action } from "./reducer";
 
 export type State = {
   patients: { [id: string]: Patient };
-  patient: Patient[];
+  patient: { [id: string]: Patient };
 };
 
 const initialState: State = {

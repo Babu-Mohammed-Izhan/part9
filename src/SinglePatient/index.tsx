@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import React from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -5,7 +6,7 @@ import { Container, Icon } from "semantic-ui-react";
 
 import { apiBaseUrl } from "../constants";
 import { useStateValue, setonePatient } from "../state";
-import { Patient } from "../types";
+import { Patient, Entry } from "../types";
 
 const SinglePatient = () => {
   const { id } = useParams<{ id: string }>();
@@ -40,6 +41,22 @@ const SinglePatient = () => {
             </h1>
             <h3>ssn: {onepatient.ssn}</h3>
             <h3>occupation: {onepatient.occupation}</h3>
+            <h4>entries</h4>
+            {onepatient.entries &&
+              onepatient.entries.map((e: Entry) => {
+                return (
+                  <div key={e.id}>
+                    <p>{e.date}</p>
+                    <p>{e.description}</p>
+                    <ul>
+                      {e.diagnosisCodes &&
+                        e.diagnosisCodes.map((d: string) => {
+                          return <li key={d}>{d}</li>;
+                        })}
+                    </ul>
+                  </div>
+                );
+              })}
           </div>
         ))}
       </Container>

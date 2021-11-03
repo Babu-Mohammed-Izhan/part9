@@ -1,12 +1,18 @@
 import React from "react";
-import { Entry } from "../types";
-import { Card } from "semantic-ui-react";
+import { HealthCheckEntry } from "../types";
+import { Card, Icon } from "semantic-ui-react";
 
-const HealthCheckEntry: React.FC<{ entry: Entry }> = ({ entry }) => {
+const HealthCheckEntryC: React.FC<{ entry: HealthCheckEntry }> = ({
+  entry,
+}) => {
+  // const healthColor = ["green", "yellow", "orange", "red"];
+
   const header = `${entry.date}`;
   const meta = `${entry.description}`;
 
-  return <Card header={header} meta={meta} />;
+  const extra = <Icon name="heart" color="red" />;
+
+  return <Card header={header} meta={meta} extra={extra} />;
 };
 
-export default HealthCheckEntry;
+export default HealthCheckEntryC;

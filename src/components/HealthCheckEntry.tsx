@@ -34,8 +34,22 @@ const HealthCheckEntryC: React.FC<{ entry: HealthCheckEntry }> = ({
     }
   };
 
+  const description = (
+    <ul>
+      {entry.diagnosisCodes &&
+        entry.diagnosisCodes.map((c) => {
+          return <li key={c}>{c}</li>;
+        })}
+    </ul>
+  );
+
   return (
-    <Card header={header} meta={meta} extra={extra(entry.healthCheckRating)} />
+    <Card
+      header={header}
+      meta={meta}
+      extra={extra(entry.healthCheckRating)}
+      description={description}
+    />
   );
 };
 

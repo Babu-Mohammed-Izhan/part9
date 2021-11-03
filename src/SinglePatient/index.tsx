@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 import { Container, Icon } from "semantic-ui-react";
 
 import { apiBaseUrl } from "../constants";
-import { useStateValue, setonePatient } from "../state";
-import { Patient, Entry } from "../types";
+import { useStateValue, setonePatient, setDiagnosis } from "../state";
+import { Patient, Entry, Diagnosis } from "../types";
 
 const SinglePatient = () => {
   const { id } = useParams<{ id: string }>();
@@ -25,7 +25,19 @@ const SinglePatient = () => {
         console.error(e);
       }
     };
+
+    const fetchDiagnosesList = async () => {
+      try {
+        const { data: diagnosisFromApi } = await axios.get<Diagnosis[]>(
+          `${apiBaseUrl}/diagnosis`
+        );
+        dispatch(setDiagnosis(diagnosisFromApi));
+      } catch (e) {
+        console.error(e);
+      }
+    };
     void fetchPatientList();
+    void fetchDiagnosesList();
   }, [dispatch]);
 
   console.log(patient);

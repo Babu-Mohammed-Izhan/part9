@@ -4,14 +4,14 @@ import HospitalEntry from "../components/HospitalEntry";
 import OccupationalHealthcareEntry from "../components/OccupationalHealthcareEntry";
 import { Entry } from "../types";
 
-const EntryDetails = (entry: Entry) => {
+const EntryDetails: React.FC<{ entry: Entry }> = ({ entry }) => {
   switch (entry.type) {
     case "Hospital":
-      return <HospitalEntry />;
+      return <HospitalEntry entry={entry} />;
     case "OccupationalHealthcare":
-      return <OccupationalHealthcareEntry />;
+      return <OccupationalHealthcareEntry entry={entry} />;
     case "HealthCheck":
-      return <HealthCheckEntry />;
+      return <HealthCheckEntry entry={entry} />;
     default:
       return 0;
   }

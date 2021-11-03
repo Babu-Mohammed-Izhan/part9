@@ -10,7 +10,7 @@ import { Patient, Entry, Diagnosis } from "../types";
 
 const SinglePatient = () => {
   const { id } = useParams<{ id: string }>();
-  const [{ patient }, dispatch] = useStateValue();
+  const [{ patient, diagnosis }, dispatch] = useStateValue();
 
   React.useEffect(() => {
     void axios.get<void>(`${apiBaseUrl}/ping`);
@@ -58,12 +58,22 @@ const SinglePatient = () => {
               onepatient.entries.map((e: Entry) => {
                 return (
                   <div key={e.id}>
-                    <p>{e.date}</p>
-                    <p>{e.description}</p>
+                    <p>
+                      {e.date} {e.description}
+                    </p>
                     <ul>
                       {e.diagnosisCodes &&
                         e.diagnosisCodes.map((d: string) => {
-                          return <li key={d}>{d}</li>;
+                          const result = diagnosis.filter(
+                            (di) => di.code === d
+                          );
+                          console.log(result);
+                          return (
+                            <li key={d}>
+                              {d}
+                              {result.length && result[0].name}
+                            </li>
+                          );
                         })}
                     </ul>
                   </div>

@@ -1,10 +1,12 @@
 import React from "react";
 import { OccupationalHealthcareEntry } from "../types";
 import { Card, Icon } from "semantic-ui-react";
+import { useStateValue } from "../state";
 
 const OccupationalHealthcareEntryC: React.FC<{
   entry: OccupationalHealthcareEntry;
 }> = ({ entry }) => {
+  const [{ diagnosis }] = useStateValue();
   const header = (
     <h3>
       {entry.date}
@@ -18,7 +20,13 @@ const OccupationalHealthcareEntryC: React.FC<{
     <ul>
       {entry.diagnosisCodes &&
         entry.diagnosisCodes.map((c) => {
-          return <li key={c}>{c}</li>;
+          const result = diagnosis.filter((di) => di.code === c);
+          return (
+            <li key={c}>
+              {c}
+              {result && result[0].name}
+            </li>
+          );
         })}
     </ul>
   );

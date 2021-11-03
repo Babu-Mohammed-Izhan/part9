@@ -1,11 +1,12 @@
 import React from "react";
 import { HealthCheckEntry } from "../types";
 import { Card, Icon } from "semantic-ui-react";
+import { useStateValue } from "../state";
 
 const HealthCheckEntryC: React.FC<{ entry: HealthCheckEntry }> = ({
   entry,
 }) => {
-  // const healthColor = ['green', 'yellow', 'orange', 'red'];
+  const [{ diagnosis }] = useStateValue();
 
   const header = (
     <h3>
@@ -38,7 +39,13 @@ const HealthCheckEntryC: React.FC<{ entry: HealthCheckEntry }> = ({
     <ul>
       {entry.diagnosisCodes &&
         entry.diagnosisCodes.map((c) => {
-          return <li key={c}>{c}</li>;
+          const result = diagnosis.filter((di) => di.code === c);
+          return (
+            <li key={c}>
+              {c}
+              {result && result[0].name}
+            </li>
+          );
         })}
     </ul>
   );

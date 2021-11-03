@@ -1,15 +1,23 @@
 import React from "react";
 import { Entry } from "../types";
 import { Card } from "semantic-ui-react";
+import { useStateValue } from "../state";
 
 const HospitalEntryC: React.FC<{ entry: Entry }> = ({ entry }) => {
+  const [{ diagnosis }] = useStateValue();
   const header = `${entry.date}`;
   const meta = `${entry.description}`;
   const description = (
     <ul>
       {entry.diagnosisCodes &&
         entry.diagnosisCodes.map((c) => {
-          return <li key={c}>{c}</li>;
+          const result = diagnosis.filter((di) => di.code === c);
+          return (
+            <li key={c}>
+              {c}
+              {result && result[0].name}
+            </li>
+          );
         })}
     </ul>
   );

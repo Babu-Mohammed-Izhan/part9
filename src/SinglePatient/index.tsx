@@ -57,29 +57,7 @@ const SinglePatient = () => {
             <h4>entries</h4>
             {onepatient.entries &&
               onepatient.entries.map((e: Entry) => {
-                return (
-                  <EntryDetails key={e.id} entry={e} />
-                  // <div key={e.id}>
-                  //   <p>
-                  //     {e.date} {e.description}
-                  //   </p>
-                  //   <ul>
-                  //     {e.diagnosisCodes &&
-                  //       e.diagnosisCodes.map((d: string) => {
-                  //         const result = diagnosis.filter(
-                  //           (di) => di.code === d
-                  //         );
-                  //         console.log(result);
-                  //         return (
-                  //           <li key={d}>
-                  //             {d}
-                  //             {result.length && result[0].name}
-                  //           </li>
-                  //         );
-                  //       })}
-                  //   </ul>
-                  // </div>
-                );
+                return <EntryDetails key={e.id} entry={e} />;
               })}
           </div>
         ))}

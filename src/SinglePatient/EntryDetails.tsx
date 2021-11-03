@@ -13,8 +13,12 @@ const EntryDetails: React.FC<{ entry: Entry }> = ({ entry }) => {
     case "HealthCheck":
       return <HealthCheckEntry entry={entry} />;
     default:
-      return 0;
+      return assertNever(entry);
   }
 };
 
 export default EntryDetails;
+
+function assertNever(_entry: never): React.ReactElement<never, never> | null {
+  throw new Error("Entry not valid");
+}

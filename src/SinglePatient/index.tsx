@@ -7,10 +7,11 @@ import { Container, Icon } from "semantic-ui-react";
 import { apiBaseUrl } from "../constants";
 import { useStateValue, setonePatient, setDiagnosis } from "../state";
 import { Patient, Entry, Diagnosis } from "../types";
+import EntryDetails from "./EntryDetails";
 
 const SinglePatient = () => {
   const { id } = useParams<{ id: string }>();
-  const [{ patient, diagnosis }, dispatch] = useStateValue();
+  const [{ patient }, dispatch] = useStateValue();
 
   React.useEffect(() => {
     void axios.get<void>(`${apiBaseUrl}/ping`);
@@ -57,26 +58,27 @@ const SinglePatient = () => {
             {onepatient.entries &&
               onepatient.entries.map((e: Entry) => {
                 return (
-                  <div key={e.id}>
-                    <p>
-                      {e.date} {e.description}
-                    </p>
-                    <ul>
-                      {e.diagnosisCodes &&
-                        e.diagnosisCodes.map((d: string) => {
-                          const result = diagnosis.filter(
-                            (di) => di.code === d
-                          );
-                          console.log(result);
-                          return (
-                            <li key={d}>
-                              {d}
-                              {result.length && result[0].name}
-                            </li>
-                          );
-                        })}
-                    </ul>
-                  </div>
+                  <EntryDetails key={e.id} entry={e} />
+                  // <div key={e.id}>
+                  //   <p>
+                  //     {e.date} {e.description}
+                  //   </p>
+                  //   <ul>
+                  //     {e.diagnosisCodes &&
+                  //       e.diagnosisCodes.map((d: string) => {
+                  //         const result = diagnosis.filter(
+                  //           (di) => di.code === d
+                  //         );
+                  //         console.log(result);
+                  //         return (
+                  //           <li key={d}>
+                  //             {d}
+                  //             {result.length && result[0].name}
+                  //           </li>
+                  //         );
+                  //       })}
+                  //   </ul>
+                  // </div>
                 );
               })}
           </div>

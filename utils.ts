@@ -57,6 +57,18 @@ const isDiagnosis = (
   return true;
 };
 
+const isDischarge = (_discharge: unknown): _discharge is Discharge => {
+  return true;
+};
+
+const isSickleave = (_sickleave: unknown): _sickleave is SickLeave => {
+  return true;
+};
+
+const isHealthrating = (_rating: unknown): _rating is HealthCheckRating => {
+  return true;
+};
+
 const parseEntry = (entry: unknown): Entry[] => {
   if (!entry || !isEntry(entry)) {
     throw new Error("Incorrect or missing Entry: " + entry);
@@ -74,14 +86,23 @@ const parseDiagnosisCodes = (
 };
 
 const parseDischarge = (discharge: unknown): Discharge => {
+  if (!discharge || !isDischarge(discharge)) {
+    throw new Error("Incorrect or missing Entry: " + discharge);
+  }
   return discharge;
 };
 
 const parseSickLeave = (sickleave: unknown): SickLeave => {
+  if (!sickleave || !isSickleave(sickleave)) {
+    throw new Error("Incorrect or missing Entry: " + sickleave);
+  }
   return sickleave;
 };
 
 const parseHealthCheckRating = (healthrating: unknown): HealthCheckRating => {
+  if (!healthrating || !isHealthrating(healthrating)) {
+    throw new Error("Incorrect or missing Entry: " + healthrating);
+  }
   return healthrating;
 };
 
@@ -124,7 +145,7 @@ type EntryFields = {
   description: unknown;
   diagnosisCodes: unknown;
   type: unknown;
-  HealthCheckRating: unknown;
+  healthCheckRating: unknown;
   employerName: unknown;
   sickLeave: unknown;
   discharge: unknown;
@@ -137,7 +158,7 @@ export const toNewEntry = ({
   description,
   diagnosisCodes,
   type,
-  HealthCheckRating,
+  healthCheckRating,
   employerName,
   sickLeave,
   discharge,
@@ -146,6 +167,7 @@ export const toNewEntry = ({
     case "Hospital":
       const HospitalEntry: HospitalEntry = {
         id: parseString(id),
+        type: "Hospital",
         date: parseDate(date),
         specialist: parseString(specialist),
         description: parseString(description),
@@ -156,6 +178,7 @@ export const toNewEntry = ({
     case "OccupationalHealthcare":
       const OccupationalHealthcareEntry: OccupationalHealthcareEntry = {
         id: parseString(id),
+        type: "OccupationalHealthcare",
         date: parseDate(date),
         specialist: parseString(specialist),
         description: parseString(description),
@@ -167,11 +190,12 @@ export const toNewEntry = ({
     case "HealthCheck":
       const HealthCheckEntry: HealthCheckEntry = {
         id: parseString(id),
+        type: "HealthCheck",
         date: parseDate(date),
         specialist: parseString(specialist),
         description: parseString(description),
         diagnosisCodes: parseDiagnosisCodes(diagnosisCodes),
-        HealthCheckRating: parseHealthCheckRating(HealthCheckRating),
+        healthCheckRating: parseHealthCheckRating(healthCheckRating),
       };
       return HealthCheckEntry;
     default:

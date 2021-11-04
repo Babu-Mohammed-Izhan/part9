@@ -37,7 +37,8 @@ router.post("/", (req, res) => {
 });
 
 router.post("/:id/entries", (req, res) => {
-  console.log(req.params.id);
+  const patid = req.params.id;
+  console.log(patid);
   const newEntry = toNewEntry(req.body);
   console.log(newEntry);
   const { type, date, specialist, description, diagnosisCodes } = newEntry;

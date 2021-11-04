@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express from "express";
 import patientsService from "../services/patientsService";
@@ -36,11 +37,51 @@ router.post("/", (req, res) => {
 });
 
 router.post("/:id/entries", (req, res) => {
-  try {
-    const newEntry = toNewEntry(req.body);
-    console.log(newEntry);
-  } catch (e: any) {
-    res.status(400).send(e.message);
+  console.log(req.params.id);
+  const newEntry = toNewEntry(req.body);
+  console.log(newEntry);
+  const { type, date, specialist, description, diagnosisCodes } = newEntry;
+  const id = uuid();
+  switch (type) {
+    case "Hospital":
+      const { discharge } = newEntry;
+      const HospitalEntry = patientsService.addHospitalEntry({
+        id,
+        type,
+        date,
+        specialist,
+        description,
+        diagnosisCodes,
+        discharge,
+      });
+      return HospitalEntry;
+    case "OccupationalHealthcare":
+      const { employerName, sickLeave } = newEntry;
+      const OccupationalHealthcareEntry = patientsService.addOccupationEntry({
+        id,
+        type,
+        date,
+        specialist,
+        description,
+        diagnosisCodes,
+        employerName,
+        sickLeave,
+      });
+      return OccupationalHealthcareEntry;
+    case "HealthCheck":
+      const { healthCheckRating } = newEntry;
+      const HealthCheckEntry = patientsService.addHealthcheckEntry({
+        id,
+        type,
+        date,
+        specialist,
+        description,
+        diagnosisCodes,
+        healthCheckRating,
+      });
+      return HealthCheckEntry;
+    default:
+      return res.status(400).send("Invalid Entry");
   }
 });
 

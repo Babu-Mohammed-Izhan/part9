@@ -1,6 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import patients from "../data/patients";
 // import patientData from "../data/patients.json";
-import { PublicPatientEntry, PatientEntry, Entry } from "../types";
+import {
+  PublicPatientEntry,
+  PatientEntry,
+  Entry,
+  HospitalEntry,
+  OccupationalHealthcareEntry,
+  HealthCheckEntry,
+} from "../types";
 
 const patinets: Array<PatientEntry> = patients;
 
@@ -47,8 +55,101 @@ const addPatients = (
   return newPatient;
 };
 
+const addHospitalEntry = ({
+  id,
+  type,
+  date,
+  specialist,
+  description,
+  diagnosisCodes,
+  discharge,
+}: HospitalEntry): HospitalEntry => {
+  const onePatient = patinets.find((pat) => {
+    return pat.id === id;
+  });
+
+  const newEntry = {
+    id,
+    type,
+    date,
+    specialist,
+    description,
+    diagnosisCodes,
+    discharge,
+  };
+
+  if (onePatient) {
+    onePatient.entries.push(newEntry);
+  }
+
+  return newEntry;
+};
+
+const addOccupationEntry = ({
+  id,
+  type,
+  date,
+  specialist,
+  description,
+  diagnosisCodes,
+  employerName,
+  sickLeave,
+}: OccupationalHealthcareEntry): OccupationalHealthcareEntry => {
+  const onePatient = patinets.find((pat) => {
+    return pat.id === id;
+  });
+
+  const newEntry = {
+    id,
+    type,
+    date,
+    specialist,
+    description,
+    diagnosisCodes,
+    employerName,
+    sickLeave,
+  };
+  if (onePatient) {
+    onePatient.entries.push(newEntry);
+  }
+
+  return newEntry;
+};
+
+const addHealthcheckEntry = ({
+  id,
+  type,
+  date,
+  specialist,
+  description,
+  diagnosisCodes,
+  healthCheckRating,
+}: HealthCheckEntry): HealthCheckEntry => {
+  const onePatient = patinets.find((pat) => {
+    return pat.id === id;
+  });
+
+  const newEntry = {
+    id,
+    type,
+    date,
+    specialist,
+    description,
+    diagnosisCodes,
+    healthCheckRating,
+  };
+  if (onePatient) {
+    onePatient.entries.push(newEntry);
+  }
+
+  return newEntry;
+};
+
 export default {
   getPatients,
   addPatients,
   getOnePatient,
+  addHospitalEntry,
+  addOccupationEntry,
+  addHealthcheckEntry,
 };

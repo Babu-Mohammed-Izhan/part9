@@ -55,17 +55,20 @@ const addPatients = (
   return newPatient;
 };
 
-const addHospitalEntry = ({
-  id,
-  type,
-  date,
-  specialist,
-  description,
-  diagnosisCodes,
-  discharge,
-}: HospitalEntry): HospitalEntry => {
+const addHospitalEntry = (
+  {
+    id,
+    type,
+    date,
+    specialist,
+    description,
+    diagnosisCodes,
+    discharge,
+  }: HospitalEntry,
+  patid: string
+): HospitalEntry => {
   const onePatient = patinets.find((pat) => {
-    return pat.id === id;
+    return pat.id === patid;
   });
 
   const newEntry = {
@@ -85,18 +88,21 @@ const addHospitalEntry = ({
   return newEntry;
 };
 
-const addOccupationEntry = ({
-  id,
-  type,
-  date,
-  specialist,
-  description,
-  diagnosisCodes,
-  employerName,
-  sickLeave,
-}: OccupationalHealthcareEntry): OccupationalHealthcareEntry => {
+const addOccupationEntry = (
+  {
+    id,
+    type,
+    date,
+    specialist,
+    description,
+    diagnosisCodes,
+    employerName,
+    sickLeave,
+  }: OccupationalHealthcareEntry,
+  patid: string
+): OccupationalHealthcareEntry => {
   const onePatient = patinets.find((pat) => {
-    return pat.id === id;
+    return pat.id === patid;
   });
 
   const newEntry = {
@@ -116,17 +122,20 @@ const addOccupationEntry = ({
   return newEntry;
 };
 
-const addHealthcheckEntry = ({
-  id,
-  type,
-  date,
-  specialist,
-  description,
-  diagnosisCodes,
-  healthCheckRating,
-}: HealthCheckEntry): HealthCheckEntry => {
+const addHealthcheckEntry = (
+  {
+    id,
+    type,
+    date,
+    specialist,
+    description,
+    diagnosisCodes,
+    healthCheckRating,
+  }: HealthCheckEntry,
+  patid: string
+): HealthCheckEntry => {
   const onePatient = patinets.find((pat) => {
-    return pat.id === id;
+    return pat.id === patid;
   });
 
   const newEntry = {

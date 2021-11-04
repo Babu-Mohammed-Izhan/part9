@@ -46,40 +46,49 @@ router.post("/:id/entries", (req, res) => {
   switch (type) {
     case "Hospital":
       const { discharge } = newEntry;
-      const HospitalEntry = patientsService.addHospitalEntry({
-        id,
-        type,
-        date,
-        specialist,
-        description,
-        diagnosisCodes,
-        discharge,
-      });
+      const HospitalEntry = patientsService.addHospitalEntry(
+        {
+          id,
+          type,
+          date,
+          specialist,
+          description,
+          diagnosisCodes,
+          discharge,
+        },
+        patid
+      );
       return HospitalEntry;
     case "OccupationalHealthcare":
       const { employerName, sickLeave } = newEntry;
-      const OccupationalHealthcareEntry = patientsService.addOccupationEntry({
-        id,
-        type,
-        date,
-        specialist,
-        description,
-        diagnosisCodes,
-        employerName,
-        sickLeave,
-      });
+      const OccupationalHealthcareEntry = patientsService.addOccupationEntry(
+        {
+          id,
+          type,
+          date,
+          specialist,
+          description,
+          diagnosisCodes,
+          employerName,
+          sickLeave,
+        },
+        patid
+      );
       return OccupationalHealthcareEntry;
     case "HealthCheck":
       const { healthCheckRating } = newEntry;
-      const HealthCheckEntry = patientsService.addHealthcheckEntry({
-        id,
-        type,
-        date,
-        specialist,
-        description,
-        diagnosisCodes,
-        healthCheckRating,
-      });
+      const HealthCheckEntry = patientsService.addHealthcheckEntry(
+        {
+          id,
+          type,
+          date,
+          specialist,
+          description,
+          diagnosisCodes,
+          healthCheckRating,
+        },
+        patid
+      );
       return HealthCheckEntry;
     default:
       return res.status(400).send("Invalid Entry");

@@ -102,7 +102,12 @@ const SinglePatient = () => {
             </div>
           ))}
 
-        <Button onClick={() => openModal()}>Add New Patient</Button>
+        <Button
+          style={{ margin: "20px 0px 20px 0px" }}
+          onClick={() => openModal()}
+        >
+          Add New Entry
+        </Button>
       </Container>
     </div>
   );

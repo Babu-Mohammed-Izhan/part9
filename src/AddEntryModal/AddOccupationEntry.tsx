@@ -82,17 +82,24 @@ const AddHospitalEntryForm = ({ onSubmit, onCancel, id }: Props) => {
               component={TextField}
             />
             <Field
-              label="Discharge Date"
-              placeholder="Date of Discharge"
-              name="discharge.date"
+              label="Employer Name"
+              placeholder="Employer Name"
+              name="employerName"
               component={TextField}
             />
             <Field
-              label="Discharge Criteria"
-              placeholder="Discharge Criteria"
-              name="discharge.criteria"
+              label="Start Date"
+              placeholder="Start Date"
+              name="startDate"
               component={TextField}
             />
+            <Field
+              label="End Date"
+              placeholder="End Date"
+              name="endDate"
+              component={TextField}
+            />
+
             <DiagnosisSelection
               setFieldValue={setFieldValue}
               setFieldTouched={setFieldTouched}

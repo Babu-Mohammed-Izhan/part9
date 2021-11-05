@@ -17,9 +17,11 @@ const AddEntryModal = ({ modalOpen, onClose, onSubmit, error, id }: Props) => {
   return (
     <Modal open={modalOpen} onClose={onClose} centered={false} closeIcon>
       <Modal.Header>Add a new Entry</Modal.Header>
-      <Button onClick={() => setValue("Hospital")}>Hospital</Button>
-      <Button onClick={() => setValue("HealthCheck")}>HealthCheck</Button>
-      <Button onClick={() => setValue("Occupational")}>Occupational</Button>
+      <div style={{ margin: "10px 20px 10px 20px" }}>
+        <Button onClick={() => setValue("Hospital")}>Hospital</Button>
+        <Button onClick={() => setValue("HealthCheck")}>HealthCheck</Button>
+        <Button onClick={() => setValue("Occupational")}>Occupational</Button>
+      </div>
       {value === "Hospital" ? (
         <Modal.Content>
           {error && <Segment inverted color="red">{`Error: ${error}`}</Segment>}

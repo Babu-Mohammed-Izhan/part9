@@ -72,8 +72,6 @@ const SinglePatient = () => {
     void fetchDiagnosesList();
   }, [dispatch]);
 
-  console.log(patient);
-
   return (
     <div>
       <Container textAlign="left">

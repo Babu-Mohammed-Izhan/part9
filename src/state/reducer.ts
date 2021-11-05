@@ -9,7 +9,7 @@ export type Action =
     }
   | {
       type: "SET_SINGLE_PATIENT";
-      payload: Patient[];
+      payload: Patient;
     }
   | {
       type: "ADD_PATIENT";
@@ -41,10 +41,7 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         patient: {
-          ...action.payload.reduce(
-            (memo, patient) => ({ ...memo, [patient.id]: patient }),
-            {}
-          ),
+          ...action.payload,
         },
       };
     case "ADD_PATIENT":
@@ -63,9 +60,8 @@ export const reducer = (state: State, action: Action): State => {
     case "SET_NEW_ENTRY":
       return {
         ...state,
-        patients: {
-          ...state.patients,
-          [action.payload.id]: action.payload,
+        patient: {
+          ...action.payload,
         },
       };
     default:
@@ -80,7 +76,7 @@ export const setPatientList = (data: Patient[]): Action => {
   };
 };
 
-export const setonePatient = (data: Patient[]): Action => {
+export const setonePatient = (data: Patient): Action => {
   return {
     type: "SET_SINGLE_PATIENT",
     payload: data,

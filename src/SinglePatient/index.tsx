@@ -48,7 +48,7 @@ const SinglePatient = () => {
 
     const fetchPatientList = async () => {
       try {
-        const { data: patientFromApi } = await axios.get<Patient[]>(
+        const { data: patientFromApi } = await axios.get<Patient>(
           `${apiBaseUrl}/patients/${id}`
         );
         dispatch(setonePatient(patientFromApi));
@@ -76,29 +76,31 @@ const SinglePatient = () => {
   return (
     <div>
       <Container textAlign="left">
-        {Object.values(patient).map((onepatient: Patient) => (
-          <div key={onepatient.id}>
-            <h1>
-              {onepatient.name}{" "}
-              <Icon name={onepatient.gender === "male" ? "male" : "female"} />
-            </h1>
-            <h3>ssn: {onepatient.ssn}</h3>
-            <h3>occupation: {onepatient.occupation}</h3>
-            <h4>entries</h4>
-            {onepatient.entries &&
-              onepatient.entries.map((e: Entry) => {
-                return <EntryDetails key={e.id} entry={e} />;
-              })}
-          </div>
-        ))}
+        {patient &&
+          Object.values(patient).map((onepatient: Patient) => (
+            <div key={onepatient.id}>
+              <h1>
+                {onepatient.name}{" "}
+                <Icon name={onepatient.gender === "male" ? "male" : "female"} />
+              </h1>
+              <h3>ssn: {onepatient.ssn}</h3>
+              <h3>occupation: {onepatient.occupation}</h3>
+              <h4>entries</h4>
+              {onepatient.entries &&
+                onepatient.entries.map((e: Entry) => {
+                  return <EntryDetails key={e.id} entry={e} />;
+                })}
 
-        <AddEntryModal
-          id={patient[0].id}
-          modalOpen={modalOpen}
-          onSubmit={submitNewEntry}
-          error={error}
-          onClose={closeModal}
-        />
+              <AddEntryModal
+                id={onepatient.id}
+                modalOpen={modalOpen}
+                onSubmit={submitNewEntry}
+                error={error}
+                onClose={closeModal}
+              />
+            </div>
+          ))}
+
         <Button onClick={() => openModal()}>Add New Patient</Button>
       </Container>
     </div>

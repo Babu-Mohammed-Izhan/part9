@@ -21,7 +21,7 @@ interface Props {
 
 // ];
 
-const AddEntryForm = ({ onSubmit, onCancel, id }: Props) => {
+const AddHospitalEntryForm = ({ onSubmit, onCancel, id }: Props) => {
   const [{ diagnosis }] = useStateValue();
 
   return (
@@ -124,4 +124,4 @@ const AddEntryForm = ({ onSubmit, onCancel, id }: Props) => {
   );
 };
 
-export default AddEntryForm;
+export default AddHospitalEntryForm;

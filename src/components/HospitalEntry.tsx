@@ -11,11 +11,11 @@ const HospitalEntryC: React.FC<{ entry: Entry }> = ({ entry }) => {
     <ul>
       {entry.diagnosisCodes &&
         entry.diagnosisCodes.map((c) => {
-          const result = diagnosis.filter((di) => di.code === c);
+          const result = diagnosis.find((di) => di.code === c);
           return (
             <li key={c}>
               {c}
-              {result && result[0].name}
+              {result && result.name}
             </li>
           );
         })}

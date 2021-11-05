@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import React from "react";
 import axios from "axios";
@@ -32,7 +33,7 @@ const SinglePatient = () => {
   const submitNewEntry = async (values: Entry) => {
     try {
       const { data: newEntry } = await axios.post<Patient>(
-        `${apiBaseUrl}/${values.id}/entries`,
+        `${apiBaseUrl}/patients/${values.id}/entries`,
         values
       );
       dispatch(setNewEntry(newEntry));
